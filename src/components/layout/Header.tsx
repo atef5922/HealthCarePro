@@ -144,7 +144,7 @@ function TopBar({
         <button
           type="button"
           onClick={openSearch}
-          className="hidden h-9 w-48 shrink-0 items-center justify-between rounded-full border border-white/30 bg-white/15 px-4 text-left text-white shadow-inner transition hover:bg-white/20 lg:flex xl:w-64"
+          className="hidden h-9 w-48 shrink-0 items-center justify-between rounded-full border border-white/30 bg-white/20 px-4 text-left text-white shadow-inner transition hover:bg-white/20 lg:flex xl:w-64"
         >
           <span>Search</span>
           <Search className="h-4 w-4 text-white/80" />
@@ -279,7 +279,7 @@ function SearchOverlay({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-[70] bg-navy-950/72 backdrop-blur-sm" />
+        <Dialog.Overlay className="fixed inset-0 z-[70] bg-navy-950/70 backdrop-blur-sm" />
         <Dialog.Content className="fixed left-1/2 top-16 z-[71] w-[calc(100vw-2rem)] max-w-2xl -translate-x-1/2 rounded-2xl bg-white p-5 shadow-card">
           <div className="flex items-center gap-3">
             <Search className="h-5 w-5 text-cyan-600" />
@@ -423,7 +423,7 @@ function ActionDialogs({
     <>
       <Dialog.Root open={appointmentOpen} onOpenChange={setAppointmentOpen}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-[70] bg-navy-950/72 backdrop-blur-sm" />
+          <Dialog.Overlay className="fixed inset-0 z-[70] bg-navy-950/70 backdrop-blur-sm" />
           <Dialog.Content className="fixed left-1/2 top-8 z-[71] max-h-[calc(100vh-4rem)] w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-y-auto rounded-2xl bg-white p-6 shadow-card md:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -445,7 +445,7 @@ function ActionDialogs({
 
       <Dialog.Root open={queryOpen} onOpenChange={setQueryOpen}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-[70] bg-navy-950/72 backdrop-blur-sm" />
+          <Dialog.Overlay className="fixed inset-0 z-[70] bg-navy-950/70 backdrop-blur-sm" />
           <Dialog.Content className="fixed left-1/2 top-10 z-[71] max-h-[calc(100vh-5rem)] w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-y-auto rounded-2xl bg-white p-6 shadow-card md:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>

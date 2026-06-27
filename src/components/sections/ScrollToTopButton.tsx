@@ -20,7 +20,7 @@ export function ScrollToTopButton() {
       aria-label="Scroll to top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className={cn(
-        "fixed bottom-[5.5rem] right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-cyan-500 text-navy-950 shadow-glow transition",
+        "fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom))] right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500 text-navy-950 shadow-glow transition sm:bottom-[calc(5.5rem+env(safe-area-inset-bottom))] sm:right-6 sm:h-11 sm:w-11",
         visible ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       )}
     >

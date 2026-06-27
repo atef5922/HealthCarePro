@@ -47,7 +47,7 @@ export default function HomePage() {
               <span className="inline-flex rounded-md bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-cyan-700 shadow-sm">
                 Preventive Care
               </span>
-              <h2 className="mt-3 font-heading text-3xl font-bold leading-tight text-navy-950 md:text-4xl">
+              <h2 className="mt-3 font-heading text-2xl font-bold leading-tight text-navy-950 sm:text-3xl md:text-4xl">
                 Health Check Packages
               </h2>
             </div>
@@ -56,13 +56,13 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 2xl:gap-6">
             {packages.map((item) => (
               <Link
                 key={item.slug}
                 href={`/visitors-patients/packages#${item.slug}`}
                 data-premium-reveal
-                className="group relative min-h-[290px] overflow-hidden rounded-lg bg-navy-950 shadow-card transition duration-500 hover:-translate-y-1 hover:shadow-glow"
+                className="group relative min-h-[260px] overflow-hidden rounded-lg bg-navy-950 shadow-card transition duration-500 hover:-translate-y-1 hover:shadow-glow sm:min-h-[285px] lg:min-h-[315px] 2xl:min-h-[340px]"
               >
                 <Image
                   src={item.image}
@@ -71,7 +71,7 @@ export default function HomePage() {
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/58 to-navy-950/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/60 to-navy-950/10" />
                 <div className="absolute inset-x-0 bottom-0 p-5 text-white">
                   <p className="font-heading text-base font-black uppercase leading-5 text-white">
                     {item.title}
@@ -105,20 +105,20 @@ export default function HomePage() {
               <span className="inline-flex rounded-md bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-cyan-700 shadow-sm">
                 Health Blog
               </span>
-              <h2 className="mt-3 max-w-2xl font-heading text-3xl font-bold leading-tight text-navy-950 md:text-4xl">
+              <h2 className="mt-3 max-w-2xl font-heading text-2xl font-bold leading-tight text-navy-950 sm:text-3xl md:text-4xl">
                 Practical health guidance for patients and families.
               </h2>
             </div>
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="w-fit">
               <Link href="/blog">Read All Blogs <ArrowRight className="h-4 w-4" /></Link>
             </Button>
           </div>
 
-          <div className="mt-8 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="mt-8 grid gap-5 lg:grid-cols-[1.08fr_0.92fr] 2xl:gap-6">
             <Link
               href={`/blog/${blogs[0].slug}`}
               data-premium-reveal
-              className="group relative min-h-[420px] overflow-hidden rounded-xl bg-navy-950 shadow-card"
+              className="group relative min-h-[330px] overflow-hidden rounded-xl bg-navy-950 shadow-card sm:min-h-[380px] lg:min-h-[420px] 2xl:min-h-[460px]"
             >
               <Image
                 src={blogs[0].image}
@@ -127,7 +127,7 @@ export default function HomePage() {
                 sizes="(min-width: 1024px) 55vw, 100vw"
                 className="object-cover transition duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/58 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/60 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6 text-white md:p-8">
                 <div className="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.12em] text-cyan-100">
                   <span>{blogs[0].category}</span>
@@ -137,7 +137,7 @@ export default function HomePage() {
                   </span>
                 </div>
                 <h3 className="mt-4 max-w-2xl font-heading text-2xl font-bold leading-tight md:text-3xl">{blogs[0].title}</h3>
-                <p className="mt-3 max-w-xl text-sm leading-7 text-white/76">{blogs[0].excerpt}</p>
+                <p className="mt-3 max-w-xl text-sm leading-7 text-white/75">{blogs[0].excerpt}</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-cyan-300 transition group-hover:text-white">
                   Read Article
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -153,7 +153,7 @@ export default function HomePage() {
                   data-premium-reveal
                   className="group grid gap-4 rounded-xl border border-slate-100 bg-white p-4 shadow-soft transition hover:-translate-y-1 hover:shadow-card sm:grid-cols-[150px_1fr]"
                 >
-                  <div className="relative min-h-36 overflow-hidden rounded-lg bg-surface-blue">
+                  <div className="relative min-h-44 overflow-hidden rounded-lg bg-surface-blue sm:min-h-36">
                     <Image
                       src={item.image}
                       alt={item.title}

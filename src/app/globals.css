@@ -13,12 +13,16 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   min-height: 100vh;
   background: #f6fafe;
   color: #334155;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {
@@ -38,7 +42,7 @@ select {
 }
 
 .section-padding {
-  padding-block: clamp(3.25rem, 7vw, 6.5rem);
+  padding-block: clamp(2.75rem, 5.5vw, 5.25rem);
 }
 
 .glass-card {

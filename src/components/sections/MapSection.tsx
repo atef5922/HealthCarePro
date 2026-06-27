@@ -13,28 +13,28 @@ export function MapSection() {
     <section className="section-padding bg-white">
       <div className="container">
         <div className="grid overflow-hidden rounded-xl border border-slate-100 bg-white shadow-card lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="bg-navy-950 p-6 text-white md:p-8 lg:p-10">
-            <span className="inline-flex rounded-md border border-cyan-300/24 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-cyan-100">
+          <div className="bg-navy-950 p-5 text-white sm:p-6 md:p-8 lg:p-10 2xl:p-12">
+            <span className="inline-flex rounded-md border border-cyan-300/25 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-cyan-100">
               Location
             </span>
-            <h2 className="mt-4 max-w-xl font-heading text-3xl font-bold leading-tight md:text-4xl">
+            <h2 className="mt-4 max-w-xl font-heading text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
               Visit our main hospital campus.
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-white/74 md:text-base">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-white/75 md:text-base">
               Conveniently located with emergency access, diagnostic services, appointment desks, and patient support counters in one connected place.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {contacts.map((item) => (
-                <div key={item.label} className="rounded-lg border border-white/12 bg-white/8 p-4 backdrop-blur">
+                <div key={item.label} className="rounded-lg border border-white/10 bg-white/10 p-4 backdrop-blur">
                   <item.icon className="h-5 w-5 text-cyan-300" />
-                  <p className="mt-3 text-xs font-black uppercase tracking-[0.12em] text-white/56">{item.label}</p>
+                  <p className="mt-3 text-xs font-black uppercase tracking-[0.12em] text-white/60">{item.label}</p>
                   <p className="mt-1 text-sm font-semibold leading-6 text-white">{item.value}</p>
                 </div>
               ))}
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href={`tel:${siteConfig.emergencyHotline}`}
                 className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-cyan-500 px-5 text-sm font-black text-navy-950 shadow-glow transition hover:bg-cyan-600"
@@ -44,7 +44,7 @@ export function MapSection() {
               </a>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/24 px-5 text-sm font-black text-white transition hover:bg-white/10"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 px-5 text-sm font-black text-white transition hover:bg-white/10"
               >
                 <Mail className="h-4 w-4" />
                 Email Us
@@ -52,7 +52,7 @@ export function MapSection() {
             </div>
           </div>
 
-          <div className="relative min-h-[420px] bg-surface-blue">
+          <div className="relative min-h-[340px] bg-surface-blue sm:min-h-[380px] lg:min-h-[440px] 2xl:min-h-[480px]">
             <iframe
               title="Healthcare Pro Hospital location map"
               src={siteConfig.mapUrl}
@@ -60,7 +60,7 @@ export function MapSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-            <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-lg bg-white/94 p-4 shadow-card backdrop-blur">
+            <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-lg bg-white/95 p-4 shadow-card backdrop-blur">
               <p className="font-heading text-sm font-bold text-navy-950">{siteConfig.shortName} Main Campus</p>
               <p className="mt-1 text-xs font-semibold leading-5 text-slate-600">{siteConfig.address}</p>
             </div>

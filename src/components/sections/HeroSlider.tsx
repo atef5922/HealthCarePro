@@ -39,14 +39,14 @@ const actionToneStyles: Record<
     icon: "bg-cyan-500 text-navy-950",
     soft: "bg-cyan-50",
     text: "text-cyan-700",
-    ring: "group-hover:border-cyan-500/55"
+    ring: "group-hover:border-cyan-500/50"
   },
   teal: {
     accent: "bg-teal-500",
     icon: "bg-teal-500 text-white",
     soft: "bg-teal-50",
     text: "text-teal-700",
-    ring: "group-hover:border-teal-500/55"
+    ring: "group-hover:border-teal-500/50"
   },
   amber: {
     accent: "bg-amber-400",
@@ -60,7 +60,7 @@ const actionToneStyles: Record<
     icon: "bg-rose-500 text-white",
     soft: "bg-rose-50",
     text: "text-rose-700",
-    ring: "group-hover:border-rose-500/55"
+    ring: "group-hover:border-rose-500/50"
   }
 };
 
@@ -120,7 +120,7 @@ function AnimatedStatValue({ value, delay }: { value: string; delay: number }) {
   const hasDigit = parts.some((part) => /^\d+$/.test(part));
 
   return (
-    <p className="font-heading text-2xl font-bold leading-none text-navy-900" aria-label={value}>
+    <p className="font-heading text-2xl font-bold leading-none text-navy-900 sm:text-[1.7rem]" aria-label={value}>
       <span aria-hidden={hasDigit ? "true" : undefined}>
         {parts.map((part, partIndex) =>
           /^\d+$/.test(part) ? (
@@ -196,7 +196,7 @@ export function HeroSlider() {
             requestAnimationFrame(() => animateActiveSlide(swiper.slides[swiper.activeIndex]));
           }}
           onSlideChangeTransitionStart={(swiper) => animateActiveSlide(swiper.slides[swiper.activeIndex])}
-          className="h-[610px] sm:h-[640px] lg:h-[680px]"
+          className="h-[500px] sm:h-[580px] lg:h-[620px] xl:h-[660px] 2xl:h-[680px]"
         >
           {heroSlides.map((slide, index) => (
             <SwiperSlide key={slide.title}>
@@ -208,13 +208,13 @@ export function HeroSlider() {
                   fill
                   priority={index === 0}
                   sizes="100vw"
-                  className={`object-cover ${slide.position}`}
+                  className="object-cover object-[68%_center] sm:object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/76 to-navy-950/15" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/76 via-navy-950/18 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/80 to-navy-950/30 md:via-navy-950/70 md:to-navy-950/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-navy-950/20 to-transparent" />
 
-                <div className="container relative z-10 flex h-full items-center pb-32 pt-10 sm:pb-36 lg:pb-44">
-                  <div className="max-w-3xl text-white">
+                <div className="container relative z-10 flex h-full items-center pb-24 pt-8 sm:pb-32 lg:pb-40">
+                  <div className="w-[calc(100vw_-_2rem)] min-w-0 max-w-[42rem] text-white sm:w-full">
                     <div
                       data-hero-animate
                       className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-black uppercase tracking-[0.16em] text-cyan-100 backdrop-blur"
@@ -225,15 +225,15 @@ export function HeroSlider() {
 
                     <h1
                       data-hero-animate
-                      className="mt-5 max-w-3xl font-heading text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl"
+                      className="mt-5 max-w-[42rem] break-words font-heading text-[1.78rem] font-bold leading-tight text-white sm:text-4xl md:text-5xl xl:text-[3.55rem]"
                     >
                       {slide.title}
                     </h1>
 
-                    <div data-hero-animate className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <div data-hero-animate className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                       <Link
                         href={slide.primaryAction.href}
-                        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 text-sm font-black text-navy-950 shadow-glow transition hover:-translate-y-0.5 hover:bg-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200"
+                        className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-cyan-500 px-6 py-3 text-sm font-black text-navy-950 shadow-glow transition hover:-translate-y-0.5 hover:bg-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 sm:min-h-12 sm:w-auto"
                       >
                         {slide.primaryAction.href.startsWith("tel:") ? <PhoneCall className="h-4 w-4" /> : null}
                         {slide.primaryAction.label}
@@ -241,14 +241,14 @@ export function HeroSlider() {
                       </Link>
                       <Link
                         href={slide.secondaryAction.href}
-                        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/34 bg-white/10 px-6 py-3 text-sm font-black text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-white/70 hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                        className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/40 bg-white/10 px-6 py-3 text-sm font-black text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-white/70 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:min-h-12 sm:w-auto"
                       >
                         {slide.secondaryAction.label}
                         <ArrowRight className="h-4 w-4" />
                       </Link>
                     </div>
 
-                    <div data-hero-animate className="mt-8 hidden max-w-2xl grid-cols-3 gap-5 sm:grid">
+                    <div data-hero-animate className="mt-8 hidden max-w-2xl grid-cols-3 gap-5 md:grid">
                       {slide.highlights.map((highlight) => (
                         <div key={highlight} className="border-l border-cyan-300/60 pl-4">
                           <p className="text-sm font-bold leading-6 text-white">{highlight}</p>
@@ -263,21 +263,21 @@ export function HeroSlider() {
         </Swiper>
 
         <button
-          className="hero-prev absolute left-4 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/12 text-white shadow-card backdrop-blur transition hover:bg-cyan-500 hover:text-navy-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 md:flex"
+          className="hero-prev absolute right-[4.75rem] top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-card backdrop-blur transition hover:bg-cyan-500 hover:text-navy-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 md:flex"
           aria-label="Previous slide"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
         <button
-          className="hero-next absolute right-4 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/12 text-white shadow-card backdrop-blur transition hover:bg-cyan-500 hover:text-navy-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 md:flex"
+          className="hero-next absolute right-4 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-card backdrop-blur transition hover:bg-cyan-500 hover:text-navy-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 md:flex"
           aria-label="Next slide"
         >
           <ChevronRight className="h-5 w-5" />
         </button>
       </div>
 
-      <div className="container relative z-20 -mt-16 pb-8 sm:-mt-20 lg:-mt-28">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="container relative z-20 -mt-12 pb-8 sm:-mt-18 lg:-mt-24">
+        <div className="mx-auto grid w-[calc(100vw_-_2rem)] gap-4 sm:w-full sm:grid-cols-2 xl:grid-cols-4">
           {heroActions.map((action) => {
             const tone = actionToneStyles[action.tone];
 
@@ -292,14 +292,14 @@ export function HeroSlider() {
               >
                 <Link
                   href={action.href}
-                  className={`relative flex min-h-[164px] overflow-hidden rounded-xl border border-slate-100 bg-white p-5 shadow-card transition duration-300 hover:shadow-glow ${tone.ring}`}
+                  className={`relative flex min-h-[158px] overflow-hidden rounded-xl border border-slate-100 bg-white p-5 shadow-card transition duration-300 hover:shadow-glow sm:min-h-[168px] lg:p-6 xl:min-h-[178px] ${tone.ring}`}
                 >
                   <span className={`absolute inset-x-0 top-0 h-1 ${tone.accent}`} />
-                  <span className="flex w-full flex-col">
+                  <span className="flex min-w-0 w-full flex-col">
                     <span className="flex items-start justify-between gap-4">
-                      <span>
+                      <span className="min-w-0">
                         <span className={`text-xs font-black uppercase tracking-[0.14em] ${tone.text}`}>{action.note}</span>
-                        <span className="mt-2 block font-heading text-lg font-bold leading-6 text-navy-950">
+                        <span className="mt-2 block break-words font-heading text-lg font-bold leading-6 text-navy-950">
                           {action.title}
                         </span>
                       </span>
@@ -310,7 +310,7 @@ export function HeroSlider() {
                       </span>
                     </span>
 
-                    <span className="mt-4 block flex-1 text-sm leading-6 text-slate-600">{action.description}</span>
+                    <span className="mt-4 block flex-1 break-words text-sm leading-6 text-slate-600">{action.description}</span>
                     <span className="mt-5 flex items-center justify-between gap-3">
                       <span className={`rounded-full px-3 py-1 text-xs font-bold ${tone.soft} ${tone.text}`}>{action.meta}</span>
                       <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-900 text-white transition duration-300 group-hover:translate-x-1 group-hover:bg-cyan-500 group-hover:text-navy-950">
@@ -324,14 +324,14 @@ export function HeroSlider() {
           })}
         </div>
 
-        <div className="mt-4 grid gap-4 rounded-xl border border-slate-100 bg-white p-3 shadow-soft sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto mt-4 grid w-[calc(100vw_-_2rem)] gap-4 rounded-xl border border-slate-100 bg-white p-3 shadow-soft sm:w-full sm:grid-cols-2 xl:grid-cols-4">
           {heroStats.map((stat, index) => {
             const tone = statToneStyles[index % statToneStyles.length];
 
             return (
               <motion.div
                 key={stat.label}
-                className={`relative overflow-hidden rounded-lg border border-slate-100 bg-gradient-to-br ${tone.card} px-4 py-4 shadow-[0_10px_24px_rgba(2,27,58,0.06)]`}
+                className={`relative overflow-hidden rounded-lg border border-slate-100 bg-gradient-to-br ${tone.card} px-5 py-5 shadow-[0_10px_24px_rgba(2,27,58,0.06)]`}
                 initial={{ opacity: 0, y: 28, scale: 0.94 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 whileHover={{ y: -5 }}
@@ -359,7 +359,7 @@ export function HeroSlider() {
           })}
         </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+        <div className="mx-auto mt-6 grid w-[calc(100vw_-_2rem)] gap-6 sm:w-full lg:grid-cols-[1.25fr_0.75fr]">
           <motion.article
             className="relative h-full overflow-hidden rounded-xl bg-navy-900 p-6 text-white shadow-card md:p-8"
             custom={0}
@@ -377,12 +377,12 @@ export function HeroSlider() {
               <h2 className="mt-5 max-w-3xl font-heading text-2xl font-bold leading-tight text-white md:text-4xl">
                 {welcomeCare.title}
               </h2>
-              <p className="mt-4 max-w-4xl text-sm leading-7 text-white/82 md:text-base md:leading-8">
+              <p className="mt-4 max-w-4xl text-sm leading-7 text-white/80 md:text-base md:leading-8">
                 {welcomeCare.description}
               </p>
               <div className="mt-7 grid gap-3 sm:grid-cols-3">
                 {welcomeCare.points.map((point) => (
-                  <div key={point} className="rounded-lg border border-white/12 bg-white/8 px-4 py-3 backdrop-blur">
+                  <div key={point} className="rounded-lg border border-white/10 bg-white/10 px-4 py-3 backdrop-blur">
                     <p className="text-sm font-bold text-white">{point}</p>
                   </div>
                 ))}
@@ -406,8 +406,8 @@ export function HeroSlider() {
                 sizes="(min-width: 1024px) 35vw, 100vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/36 via-transparent to-transparent" />
-              <div className="absolute right-5 top-5 rounded-full bg-white/88 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-teal-700 shadow-sm backdrop-blur">
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/40 via-transparent to-transparent" />
+              <div className="absolute right-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-teal-700 shadow-sm backdrop-blur">
                 Emergency ready
               </div>
             </div>

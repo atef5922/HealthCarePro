@@ -31,15 +31,15 @@ export function CTASection({
           transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(25,189,235,0.26),transparent_30%),linear-gradient(135deg,rgba(6,43,95,0),rgba(20,184,166,0.18))]" />
-          <div className="relative grid gap-8 p-6 md:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:p-10">
+          <div className="relative grid gap-7 p-5 sm:p-6 md:gap-8 md:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:p-10 2xl:p-12">
             <div className="flex flex-col justify-center">
-              <span className="w-fit rounded-md border border-cyan-300/24 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-cyan-100">
+              <span className="w-fit rounded-md border border-cyan-300/25 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-cyan-100">
                 Patient Portal
               </span>
-              <h2 className="mt-4 max-w-2xl font-heading text-3xl font-bold leading-tight md:text-4xl">{title}</h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/78 md:text-base">{subtitle}</p>
+              <h2 className="mt-4 max-w-2xl font-heading text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">{title}</h2>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80 md:text-base">{subtitle}</p>
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button asChild variant="accent">
                   <Link href="/online-report">
                     <FileText className="h-4 w-4" />
@@ -62,11 +62,11 @@ export function CTASection({
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-1 2xl:gap-4">
               {portalFeatures.map((feature, index) => (
                 <motion.div
                   key={feature.title}
-                  className="rounded-lg border border-white/12 bg-white/8 p-4 backdrop-blur"
+                  className="rounded-lg border border-white/10 bg-white/10 p-4 backdrop-blur"
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.45 }}

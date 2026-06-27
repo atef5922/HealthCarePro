@@ -57,19 +57,19 @@ const departmentTones = [
 
 export function DepartmentsCarousel() {
   return (
-    <section className="bg-surface-soft py-14 md:py-16">
+    <section className="overflow-hidden bg-surface-soft py-10 md:py-14 xl:py-16">
       <div className="container">
         <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div className="text-center md:text-left">
             <span className="inline-flex rounded-md bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-cyan-700 shadow-sm">
               Clinical Care
             </span>
-            <h2 className="mt-3 font-heading text-3xl font-bold uppercase leading-none text-navy-950 md:text-4xl">
+            <h2 className="mt-3 font-heading text-2xl font-bold uppercase leading-none text-navy-950 sm:text-3xl md:text-4xl">
               Departments
             </h2>
           </div>
 
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               type="button"
               className="departments-prev flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white text-navy-900 shadow-sm transition hover:border-cyan-500 hover:bg-cyan-500 hover:text-navy-950"
@@ -102,14 +102,14 @@ export function DepartmentsCarousel() {
           navigation={{ nextEl: ".departments-next", prevEl: ".departments-prev" }}
           grabCursor
           watchSlidesProgress
-          spaceBetween={18}
+          spaceBetween={16}
           slidesPerView={1}
           breakpoints={{
             640: { slidesPerView: 2, spaceBetween: 18 },
             1024: { slidesPerView: 3, spaceBetween: 20 },
-            1280: { slidesPerView: 4, spaceBetween: 22 }
+            1280: { slidesPerView: 4, spaceBetween: 24 }
           }}
-          className="!overflow-visible"
+          className="!overflow-hidden px-0.5 pb-2"
         >
           {departments.map((department, index) => {
             const tone = departmentTones[index % departmentTones.length];
@@ -117,7 +117,7 @@ export function DepartmentsCarousel() {
             return (
               <SwiperSlide key={department.slug} className="!h-auto py-1">
                 <motion.article
-                  className="group relative flex h-full min-h-[365px] overflow-hidden rounded-lg bg-gradient-to-br from-navy-900 via-navy-800 to-teal-700 p-5 text-white shadow-card transition duration-500 ease-out hover:shadow-glow"
+                  className="group relative flex h-full min-h-[315px] overflow-hidden rounded-lg bg-gradient-to-br from-navy-900 via-navy-800 to-teal-700 p-5 text-white shadow-card transition duration-500 ease-out hover:shadow-glow sm:min-h-[340px] lg:min-h-[360px] 2xl:min-h-[375px]"
                   whileHover={{ y: -8, scale: 1.01 }}
                   whileTap={{ scale: 0.985 }}
                   transition={{ type: "spring", stiffness: 260, damping: 22 }}
@@ -137,14 +137,14 @@ export function DepartmentsCarousel() {
                       {department.title}
                     </h3>
 
-                    <div className="my-5 h-px w-full bg-white/18" />
+                    <div className="my-5 h-px w-full bg-white/20" />
 
-                    <p className="line-clamp-6 flex-1 text-sm font-medium leading-7 text-white/88">
+                    <p className="line-clamp-6 flex-1 text-sm font-medium leading-7 text-white/90 2xl:line-clamp-7">
                       {department.description}
                     </p>
 
                     <div className="mt-6 flex items-center justify-between gap-3">
-                      <span className="rounded-full border border-white/14 bg-white/10 px-3 py-1 text-xs font-bold text-cyan-100">
+                      <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-bold text-cyan-100">
                         {department.category}
                       </span>
                       <Link
