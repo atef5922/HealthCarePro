@@ -147,6 +147,23 @@ const servicePanelVariants = {
   })
 };
 
+type HeroSwiperInstance = {
+  activeIndex?: number;
+  el?: Element | null;
+  slides?: ArrayLike<Element>;
+};
+
+function getActiveSlideElement(swiper: HeroSwiperInstance) {
+  const activeIndex = typeof swiper.activeIndex === "number" ? swiper.activeIndex : 0;
+  const indexedSlide = swiper.slides?.[activeIndex];
+
+  if (indexedSlide instanceof HTMLElement) {
+    return indexedSlide;
+  }
+
+  return swiper.el?.querySelector<HTMLElement>(".swiper-slide-active") ?? null;
+}
+
 export function HeroSlider() {
   const rootRef = React.useRef<HTMLElement>(null);
 
@@ -193,9 +210,9 @@ export function HeroSlider() {
           pagination={{ clickable: true }}
           navigation={{ nextEl: ".hero-next", prevEl: ".hero-prev" }}
           onSwiper={(swiper) => {
-            requestAnimationFrame(() => animateActiveSlide(swiper.slides[swiper.activeIndex]));
+            requestAnimationFrame(() => animateActiveSlide(getActiveSlideElement(swiper)));
           }}
-          onSlideChangeTransitionStart={(swiper) => animateActiveSlide(swiper.slides[swiper.activeIndex])}
+          onSlideChangeTransitionStart={(swiper) => animateActiveSlide(getActiveSlideElement(swiper))}
           className="h-[500px] sm:h-[580px] lg:h-[620px] xl:h-[660px] 2xl:h-[680px]"
         >
           {heroSlides.map((slide, index) => (

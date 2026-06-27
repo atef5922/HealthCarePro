@@ -189,10 +189,11 @@ function MegaContent({ item }: { item: NavItem }) {
         align="center"
         sideOffset={16}
         collisionPadding={16}
+        onCloseAutoFocus={(event) => event.preventDefault()}
         className={cn(
-          "z-[80] rounded-2xl border border-slate-100 bg-white shadow-card outline-none",
+          "z-[80] max-h-[calc(100vh_-_170px)] overflow-y-auto overscroll-contain rounded-2xl border border-slate-100 bg-white shadow-card outline-none",
           isSpeciality
-            ? "max-h-[calc(100vh_-_170px)] w-[min(1080px,calc(100vw-2rem))] overflow-y-auto overscroll-contain p-4"
+            ? "w-[min(1080px,calc(100vw-2rem))] p-4"
             : "w-[min(560px,calc(100vw-2rem))] p-5"
         )}
       >
@@ -228,13 +229,36 @@ function MegaContent({ item }: { item: NavItem }) {
   );
 }
 
-function DesktopNav({ pathname }: { pathname: string }) {
+function DesktopNav({
+  pathname,
+  openMenu,
+  onOpenMenuChange
+}: {
+  pathname: string;
+  openMenu: string | null;
+  onOpenMenuChange: (href: string | null) => void;
+}) {
   return (
     <nav className="hidden items-stretch gap-0.5 xl:flex">
       {desktopNavigation.map((item) =>
         item.children ? (
-          <DropdownMenu.Root key={item.href}>
+          <DropdownMenu.Root
+            key={item.href}
+            modal={false}
+            open={openMenu === item.href}
+            onOpenChange={(open) => onOpenMenuChange(open ? item.href : null)}
+          >
             <DropdownMenu.Trigger
+              onPointerEnter={() => {
+                if (openMenu && openMenu !== item.href) {
+                  onOpenMenuChange(item.href);
+                }
+              }}
+              onFocus={() => {
+                if (openMenu && openMenu !== item.href) {
+                  onOpenMenuChange(item.href);
+                }
+              }}
               className={cn(
                 "group relative inline-flex h-14 items-center gap-1 px-2.5 text-sm font-bold text-navy-950 outline-none transition hover:text-cyan-700 2xl:px-3",
                 itemIsActive(pathname, item) && "text-cyan-700"
@@ -498,7 +522,13 @@ export function Header() {
   const [appointmentOpen, setAppointmentOpen] = React.useState(false);
   const [queryOpen, setQueryOpen] = React.useState(false);
   const [topBarHidden, setTopBarHidden] = React.useState(false);
+  const [desktopMenuOpen, setDesktopMenuOpen] = React.useState<string | null>(null);
+  const desktopMenuOpenRef = React.useRef(false);
   const dialogOpen = searchOpen || appointmentOpen || queryOpen;
+
+  React.useEffect(() => {
+    desktopMenuOpenRef.current = desktopMenuOpen !== null;
+  }, [desktopMenuOpen]);
 
   React.useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -507,6 +537,12 @@ export function Header() {
     const updateHeader = () => {
       const currentScrollY = window.scrollY;
       const scrollDelta = currentScrollY - lastScrollY;
+
+      if (desktopMenuOpenRef.current) {
+        lastScrollY = currentScrollY;
+        ticking = false;
+        return;
+      }
 
       if (currentScrollY < 90) {
         setTopBarHidden(false);
@@ -545,7 +581,7 @@ export function Header() {
       </div>
       <div className="container flex min-h-[82px] items-center justify-between gap-4 py-3 xl:min-h-[88px]">
         <Logo />
-        <DesktopNav pathname={pathname} />
+        <DesktopNav pathname={pathname} openMenu={desktopMenuOpen} onOpenMenuChange={setDesktopMenuOpen} />
         <div className="flex items-center gap-2">
           <button
             type="button"
