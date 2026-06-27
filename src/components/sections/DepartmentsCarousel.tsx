@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
@@ -9,6 +10,21 @@ import { specialities } from "@/data/specialities";
 import { renderIcon } from "@/lib/icons";
 
 const departments = specialities.slice(0, 12);
+
+const departmentImages = [
+  "/assets/ambulance.webp",
+  "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=900&q=80"
+];
 
 const departmentTones = [
   {
@@ -113,6 +129,7 @@ export function DepartmentsCarousel() {
         >
           {departments.map((department, index) => {
             const tone = departmentTones[index % departmentTones.length];
+            const image = departmentImages[index % departmentImages.length];
 
             return (
               <SwiperSlide key={department.slug} className="!h-auto py-1">
@@ -122,7 +139,16 @@ export function DepartmentsCarousel() {
                   whileTap={{ scale: 0.985 }}
                   transition={{ type: "spring", stiffness: 260, damping: 22 }}
                 >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(25,189,235,0.28),transparent_30%)] opacity-90" />
+                  <Image
+                    src={image}
+                    alt={`${department.title} department care`}
+                    fill
+                    sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="scale-110 object-cover opacity-95 blur-[1px] transition duration-700 group-hover:scale-105 group-hover:opacity-100 group-hover:blur-[0.5px]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-navy-950/34 via-navy-900/18 to-teal-700/22" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(25,189,235,0.12),transparent_30%)] opacity-70" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/92 via-navy-950/28 to-white/0" />
                   <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.12),transparent_34%)]" />
                   </div>
@@ -133,13 +159,13 @@ export function DepartmentsCarousel() {
                       {renderIcon(department.icon, "h-8 w-8")}
                     </div>
 
-                    <h3 className="mt-4 text-center font-heading text-lg font-bold leading-6 text-white">
+                    <h3 className="mt-4 text-center font-heading text-lg font-bold leading-6 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
                       {department.title}
                     </h3>
 
                     <div className="my-5 h-px w-full bg-white/20" />
 
-                    <p className="line-clamp-6 flex-1 text-sm font-medium leading-7 text-white/90 2xl:line-clamp-7">
+                    <p className="line-clamp-6 flex-1 text-sm font-medium leading-7 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] 2xl:line-clamp-7">
                       {department.description}
                     </p>
 
