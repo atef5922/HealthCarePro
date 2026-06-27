@@ -184,34 +184,47 @@ function MegaContent({ item }: { item: NavItem }) {
   const links = item.children ?? [];
 
   return (
-    <DropdownMenu.Content
-      align="center"
-      sideOffset={18}
-      className={cn(
-        "z-50 rounded-2xl border border-slate-100 bg-white p-5 shadow-card",
-        isSpeciality ? "w-[min(1040px,calc(100vw-2rem))]" : "w-[min(560px,calc(100vw-2rem))]"
-      )}
-    >
-      <div className={cn("grid gap-3", isSpeciality ? "md:grid-cols-4" : "md:grid-cols-2")}>
-        {links.map((child) => (
-          <DropdownMenu.Item asChild key={child.href}>
-            <Link href={child.href} className="rounded-xl p-3 outline-none transition hover:bg-surface-blue focus:bg-surface-blue">
-              <p className="font-heading text-sm font-bold text-slate-950">{child.title}</p>
-              {child.description ? (
-                <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-600">{child.description}</p>
-              ) : null}
-            </Link>
+    <DropdownMenu.Portal>
+      <DropdownMenu.Content
+        align="center"
+        sideOffset={16}
+        collisionPadding={16}
+        className={cn(
+          "z-[80] rounded-2xl border border-slate-100 bg-white shadow-card outline-none",
+          isSpeciality
+            ? "max-h-[calc(100vh_-_170px)] w-[min(1080px,calc(100vw-2rem))] overflow-y-auto overscroll-contain p-4"
+            : "w-[min(560px,calc(100vw-2rem))] p-5"
+        )}
+      >
+        <div className={cn("grid", isSpeciality ? "gap-2 md:grid-cols-4" : "gap-3 md:grid-cols-2")}>
+          {links.map((child) => (
+            <DropdownMenu.Item asChild key={child.href}>
+              <Link
+                href={child.href}
+                className={cn(
+                  "outline-none transition hover:bg-surface-blue focus:bg-surface-blue",
+                  isSpeciality ? "rounded-lg p-2.5" : "rounded-xl p-3"
+                )}
+              >
+                <p className="font-heading text-sm font-bold leading-5 text-slate-950">{child.title}</p>
+                {child.description ? (
+                  <p className={cn("mt-1 text-xs leading-5 text-slate-600", isSpeciality ? "line-clamp-1" : "line-clamp-2")}>
+                    {child.description}
+                  </p>
+                ) : null}
+              </Link>
+            </DropdownMenu.Item>
+          ))}
+        </div>
+        {isSpeciality ? (
+          <DropdownMenu.Item asChild>
+            <Button asChild className="mt-4 w-full" variant="outline">
+              <Link href="/specialities">View All Specialities</Link>
+            </Button>
           </DropdownMenu.Item>
-        ))}
-      </div>
-      {isSpeciality ? (
-        <DropdownMenu.Item asChild>
-          <Button asChild className="mt-5 w-full" variant="outline">
-            <Link href="/specialities">View All Specialities</Link>
-          </Button>
-        </DropdownMenu.Item>
-      ) : null}
-    </DropdownMenu.Content>
+        ) : null}
+      </DropdownMenu.Content>
+    </DropdownMenu.Portal>
   );
 }
 
