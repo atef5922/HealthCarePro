@@ -7,6 +7,7 @@ import * as Accordion from "@radix-ui/react-accordion";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
+  ArrowUpRight,
   CalendarCheck,
   ChevronDown,
   FileText,
@@ -179,7 +180,15 @@ function TopBar({
   );
 }
 
-function MegaContent({ item }: { item: NavItem }) {
+function MegaContent({
+  item,
+  onPointerEnter,
+  onPointerLeave
+}: {
+  item: NavItem;
+  onPointerEnter?: React.PointerEventHandler<HTMLDivElement>;
+  onPointerLeave?: React.PointerEventHandler<HTMLDivElement>;
+}) {
   const isSpeciality = item.title === "Specialities";
   const links = item.children ?? [];
 
@@ -189,30 +198,49 @@ function MegaContent({ item }: { item: NavItem }) {
         align="center"
         sideOffset={16}
         collisionPadding={16}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
         onCloseAutoFocus={(event) => event.preventDefault()}
         className={cn(
-          "z-[80] max-h-[calc(100vh_-_170px)] overflow-y-auto overscroll-contain rounded-2xl border border-slate-100 bg-white shadow-card outline-none",
+          "mega-menu-content z-[80] max-h-[calc(100vh_-_170px)] overflow-y-auto overscroll-contain rounded-2xl border border-cyan-500/10 bg-[linear-gradient(135deg,#eef8ff_0%,#ffffff_46%,#ecfeff_100%)] shadow-[0_24px_70px_rgba(2,27,58,0.16)] outline-none",
           isSpeciality
             ? "w-[min(1080px,calc(100vw-2rem))] p-4"
             : "w-[min(560px,calc(100vw-2rem))] p-5"
         )}
       >
-        <div className={cn("grid", isSpeciality ? "gap-2 md:grid-cols-4" : "gap-3 md:grid-cols-2")}>
+        <div className={cn("grid", isSpeciality ? "gap-3 md:grid-cols-4" : "gap-3 md:grid-cols-2")}>
           {links.map((child) => (
             <DropdownMenu.Item asChild key={child.href}>
               <Link
                 href={child.href}
                 className={cn(
-                  "outline-none transition hover:bg-surface-blue focus:bg-surface-blue",
-                  isSpeciality ? "rounded-lg p-2.5" : "rounded-xl p-3"
+                  "group/menuItem relative flex min-w-0 gap-3 overflow-hidden rounded-xl border border-white/80 bg-white/[0.88] shadow-sm outline-none transition duration-200 hover:-translate-y-0.5 hover:border-cyan-500/40 hover:bg-white hover:shadow-card focus:border-cyan-500/40 focus:bg-white focus:shadow-card",
+                  isSpeciality ? "min-h-[96px] p-3" : "min-h-[112px] p-4"
                 )}
               >
-                <p className="font-heading text-sm font-bold leading-5 text-slate-950">{child.title}</p>
-                {child.description ? (
-                  <p className={cn("mt-1 text-xs leading-5 text-slate-600", isSpeciality ? "line-clamp-1" : "line-clamp-2")}>
-                    {child.description}
-                  </p>
-                ) : null}
+                <span
+                  className={cn(
+                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg font-heading text-xs font-black text-white shadow-sm",
+                    isSpeciality
+                      ? "bg-gradient-to-br from-cyan-500 via-teal-500 to-green-500"
+                      : "bg-gradient-to-br from-navy-900 via-navy-700 to-teal-600"
+                  )}
+                >
+                  {child.title
+                    .split(" ")
+                    .slice(0, 2)
+                    .map((word) => word[0])
+                    .join("")}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-heading text-sm font-black leading-5 text-slate-950">{child.title}</span>
+                  {child.description ? (
+                    <span className={cn("mt-1 block text-xs leading-5 text-slate-600", isSpeciality ? "line-clamp-2" : "line-clamp-2")}>
+                      {child.description}
+                    </span>
+                  ) : null}
+                </span>
+                <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-cyan-600 opacity-0 transition duration-200 group-hover/menuItem:translate-x-0.5 group-hover/menuItem:-translate-y-0.5 group-hover/menuItem:opacity-100" />
               </Link>
             </DropdownMenu.Item>
           ))}
@@ -238,6 +266,36 @@ function DesktopNav({
   openMenu: string | null;
   onOpenMenuChange: (href: string | null) => void;
 }) {
+  const closeTimerRef = React.useRef<number | null>(null);
+
+  const clearCloseTimer = React.useCallback(() => {
+    if (closeTimerRef.current) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
+
+  const openDesktopMenu = React.useCallback((href: string) => {
+    clearCloseTimer();
+    onOpenMenuChange(href);
+  }, [clearCloseTimer, onOpenMenuChange]);
+
+  const scheduleCloseMenu = React.useCallback(() => {
+    clearCloseTimer();
+    closeTimerRef.current = window.setTimeout(() => {
+      onOpenMenuChange(null);
+      closeTimerRef.current = null;
+    }, 170);
+  }, [clearCloseTimer, onOpenMenuChange]);
+
+  const handlePointerOpen = React.useCallback((href: string, event: React.PointerEvent) => {
+    if (event.pointerType !== "touch") {
+      openDesktopMenu(href);
+    }
+  }, [openDesktopMenu]);
+
+  React.useEffect(() => clearCloseTimer, [clearCloseTimer]);
+
   return (
     <nav className="hidden items-stretch gap-0.5 xl:flex">
       {desktopNavigation.map((item) =>
@@ -246,31 +304,31 @@ function DesktopNav({
             key={item.href}
             modal={false}
             open={openMenu === item.href}
-            onOpenChange={(open) => onOpenMenuChange(open ? item.href : null)}
+            onOpenChange={(open) => {
+              clearCloseTimer();
+              onOpenMenuChange(open ? item.href : null);
+            }}
           >
-            <DropdownMenu.Trigger
-              onPointerEnter={() => {
-                if (openMenu && openMenu !== item.href) {
-                  onOpenMenuChange(item.href);
-                }
-              }}
-              onFocus={() => {
-                if (openMenu && openMenu !== item.href) {
-                  onOpenMenuChange(item.href);
-                }
-              }}
-              className={cn(
-                "group relative inline-flex h-14 items-center gap-1 px-2.5 text-sm font-bold text-navy-950 outline-none transition hover:text-cyan-700 2xl:px-3",
-                itemIsActive(pathname, item) && "text-cyan-700"
-              )}
+            <div
+              className="flex"
+              onPointerEnter={(event) => handlePointerOpen(item.href, event)}
+              onPointerLeave={scheduleCloseMenu}
             >
-              {item.title}
-              <ChevronDown className="h-4 w-4 transition group-data-[state=open]:rotate-180" />
-              {itemIsActive(pathname, item) ? (
-                <span className="absolute inset-x-2 bottom-0 h-1 rounded-t-full bg-cyan-500" />
-              ) : null}
-            </DropdownMenu.Trigger>
-            <MegaContent item={item} />
+              <DropdownMenu.Trigger
+                onFocus={() => openDesktopMenu(item.href)}
+                className={cn(
+                  "group relative inline-flex h-14 items-center gap-1 px-2.5 text-sm font-bold text-navy-950 outline-none transition hover:text-cyan-700 2xl:px-3",
+                  itemIsActive(pathname, item) && "text-cyan-700"
+                )}
+              >
+                {item.title}
+                <ChevronDown className="h-4 w-4 transition group-data-[state=open]:rotate-180" />
+                {itemIsActive(pathname, item) ? (
+                  <span className="absolute inset-x-2 bottom-0 h-1 rounded-t-full bg-cyan-500" />
+                ) : null}
+              </DropdownMenu.Trigger>
+              <MegaContent item={item} onPointerEnter={clearCloseTimer} onPointerLeave={scheduleCloseMenu} />
+            </div>
           </DropdownMenu.Root>
         ) : (
           <Link
